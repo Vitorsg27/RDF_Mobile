@@ -1,5 +1,7 @@
 import { Text, View } from "./Themed";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import Modal from '@/components/Modal';
+import { useState } from 'react'
 
 interface DesksProps {
     text: string;
@@ -7,19 +9,26 @@ interface DesksProps {
 }
 
 export default function Desks({ text, color }: DesksProps) {
+    const [modalVisible, setModalVisible] = useState(false);
+    const onPress = () => {
+        setModalVisible(!modalVisible);
+    }
     return (
-        <View style={[styles.desks, { backgroundColor: color }]}>
-            <Text style={styles.text}>{text}</Text>
-        </View>
+        <>
+            <TouchableOpacity style={[styles.desks, { backgroundColor: color }]} onPress={onPress}>
+                <Text style={styles.text}>{text}</Text>
+            </TouchableOpacity>
+            <Modal modalVisible={modalVisible} onPress={onPress}/>
+        </>
     )
 }
 
 const styles = StyleSheet.create({
     desks: {
         borderRadius: 30,
-        width: 120,
-        paddingVertical: 40,
-        margin: 20,
+        width: 100,
+        paddingVertical: 30,
+        margin: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
