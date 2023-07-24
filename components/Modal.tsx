@@ -3,9 +3,10 @@ import { Modal, StyleSheet, Text, Pressable, View } from 'react-native';
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
+    text: string;
 }
 
-const App = ({ modalVisible, onPress }: MyComponentProps) => {
+const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
 
     return (
         <Modal
@@ -17,12 +18,24 @@ const App = ({ modalVisible, onPress }: MyComponentProps) => {
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Hello World!</Text>
+                    <Text style={styles.modalText}>{text}</Text>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
                         onPress={() => onPress()}>
-                        <Text style={styles.textStyle}>Fechar</Text>
+                        <Text style={styles.textStyle}> X </Text>
                     </Pressable>
+                    <View>
+                        <Text style={styles.subtitle}>Pedidos</Text>
+                        <Pressable></Pressable>
+                        <Text>AA</Text>
+                    </View>
+                    <View style={styles.line} />
+                    <View>
+                        <Text style={styles.subtitle}>Comanda</Text>
+                        <Pressable></Pressable>
+                        <Text>AA</Text>
+                    </View>
+                    <View style={styles.line} />
                 </View>
             </View>
         </Modal>
@@ -37,39 +50,52 @@ const styles = StyleSheet.create({
         marginTop: 22,
     },
     modalView: {
+        minWidth: 400,
         margin: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#e2e2e2',
         borderRadius: 20,
-        padding: 35,
+        padding: 10,
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
         elevation: 5,
     },
     button: {
-        borderRadius: 20,
+        borderRadius: 10,
         padding: 10,
         elevation: 2,
     },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
-    },
     buttonClose: {
-        backgroundColor: '#2196F3',
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        backgroundColor: '#e2e2e2',
+        borderColor: 'black',
+        padding: 5,
+        zIndex: 1,
     },
     textStyle: {
-        color: 'white',
+        fontSize: 24,
+        color: 'black',
         fontWeight: 'bold',
         textAlign: 'center',
     },
     modalText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+        marginBottom: 30,
+        textAlign: 'center',
+    },
+    subtitle: {
+        fontSize: 30,
         marginBottom: 15,
         textAlign: 'center',
+    },
+    line: {
+        width: 300,
+        borderBottomWidth: 3,
+        borderBottomColor: 'black',
+        marginBottom: 8,
+        marginTop: 8,
     },
 });
 

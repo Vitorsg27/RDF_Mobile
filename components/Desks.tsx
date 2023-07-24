@@ -18,7 +18,7 @@ export default function Desks({ text, color }: DesksProps) {
             <TouchableOpacity style={[styles.desks, { backgroundColor: color }]} onPress={onPress}>
                 <Text style={styles.text}>{text}</Text>
             </TouchableOpacity>
-            <Modal modalVisible={modalVisible} onPress={onPress}/>
+            <Modal modalVisible={modalVisible} onPress={onPress} text={text}/>
         </>
     )
 }
