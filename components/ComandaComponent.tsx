@@ -11,13 +11,19 @@ const Comanda = [
 const ComandaComponent = () => {
     return (
         <>
-            {Comanda.map((pedido, index) => (
-                <View style={styles.pedidoContainer} key={index}>
-                    <Text style={styles.produto}>{pedido.produto} </Text>
-                    <Text style={styles.qtd}>{pedido.qtd}</Text>
-                    <Text style={styles.preco}>{formatPrice(pedido.preco)}</Text>
-                </View>
-            ))}
+            <View style={{ backgroundColor: '#e2e2e2' }}>
+                {Comanda.map((pedido, index) => (
+                    <View style={styles.pedidoContainer} key={index}>
+                        <Text style={styles.produto}>{pedido.produto} </Text>
+                        <Text style={styles.qtd}>{pedido.qtd}</Text>
+                        <Text style={styles.preco}>{formatPrice(pedido.preco)}</Text>
+                    </View>
+                ))}
+            </View>
+            <View style={styles.total}>
+                <Text>Total</Text>
+                <Text>R$ 167,00</Text>
+            </View>
         </>
     )
 }
@@ -49,6 +55,12 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'right',
     },
+    total: {
+        backgroundColor: '#e2e2e2',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 15
+    }
 });
 
 
