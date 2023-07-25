@@ -1,9 +1,7 @@
-import { StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import Desks from '@/components/Desks';
-import Modal from '@/components/Modal';
 
 export default function TabOneScreen() {
   return (

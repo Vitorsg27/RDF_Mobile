@@ -1,4 +1,4 @@
-import { Text, View } from "./Themed";
+import { Text } from "./Themed";
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Modal from '@/components/Modal';
 import { useState } from 'react'

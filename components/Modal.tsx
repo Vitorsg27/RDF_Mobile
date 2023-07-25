@@ -1,4 +1,7 @@
-import { Modal, StyleSheet, Text, Pressable, View } from 'react-native';
+import { Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
+import PedidosComponent from './PedidosComponent';
+import ComandaComponent from './ComandaComponent';
+import ButtonOrange from './ButtonOrange';
 
 interface MyComponentProps {
     modalVisible: boolean;
@@ -24,18 +27,23 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                         onPress={() => onPress()}>
                         <Text style={styles.textStyle}> X </Text>
                     </Pressable>
-                    <View>
+                    <View style={styles.pedidos}>
                         <Text style={styles.subtitle}>Pedidos</Text>
-                        <Pressable></Pressable>
-                        <Text>AA</Text>
+                        <PedidosComponent />
+                        <View style={styles.pedidosButtons}>
+                            <ButtonOrange text='Entregue' />
+                            <ButtonOrange text='Cancelar' />
+                        </View>
                     </View>
                     <View style={styles.line} />
-                    <View>
+                    <View style={styles.pedidos}>
                         <Text style={styles.subtitle}>Comanda</Text>
-                        <Pressable></Pressable>
-                        <Text>AA</Text>
+                        <ComandaComponent />
                     </View>
                     <View style={styles.line} />
+                    <View style={styles.pedidosButtons}>
+                        <ButtonOrange text='Finalizar Comanda' />
+                    </View>
                 </View>
             </View>
         </Modal>
@@ -50,7 +58,7 @@ const styles = StyleSheet.create({
         marginTop: 22,
     },
     modalView: {
-        minWidth: 400,
+        minWidth: 350,
         margin: 20,
         backgroundColor: '#e2e2e2',
         borderRadius: 20,
@@ -78,6 +86,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    pedidos: {
+        minWidth: '80%',
+    },
+    pedidosButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 20,
+    },
     modalText: {
         fontSize: 30,
         fontWeight: 'bold',
@@ -91,7 +107,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     line: {
-        width: 300,
+        minWidth: '80%',
         borderBottomWidth: 3,
         borderBottomColor: 'black',
         marginBottom: 8,
