@@ -32,11 +32,11 @@ const ModalPedido = ({ modalVisible, onPress, array }: MyComponentProps) => {
                                 <Text>{pedido.produto} </Text>
                                 <View style={styles.qtdView}>
                                     <TouchableOpacity>
-                                        <AntDesign name="pluscircleo" size={20} color="black" />
+                                        <AntDesign name="minuscircleo" size={20} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.qtdNum}>{pedido.qtd}</Text>
                                     <TouchableOpacity>
-                                        <AntDesign name="minuscircleo" size={20} color="black" />
+                                        <AntDesign name="pluscircleo" size={20} color="black" />
                                     </TouchableOpacity>
                                 </View>
                             </View>
