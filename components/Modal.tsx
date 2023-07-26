@@ -1,15 +1,34 @@
-import { Modal, StyleSheet, Text, Pressable, View, ScrollView } from 'react-native';
+import { Modal, StyleSheet, Text, Pressable, View, ScrollView, TouchableOpacity } from 'react-native';
+import { useState } from 'react'
+import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import PedidosComponent from './PedidosComponent';
 import ComandaComponent from './ComandaComponent';
 import ButtonOrange from './ButtonOrange';
+import ModalPedido from './ModalPedido';
+import ModalComanda from './ModalComanda';
 
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
     text: string;
 }
+const Pedidos = [
+    { produto: "Batata Frita", qtd: 2 },
+    { produto: "Refrigerante", qtd: 3 },
+    { produto: "Pastel", qtd: 1 },
+];
 
 const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
+
+    const [modalPedidoVisible, setModalPedidoVisible] = useState(false);
+    const onPressEditPedido = () => {
+        setModalPedidoVisible(!modalPedidoVisible);
+    }
+
+    const [modalComandaVisible, setModalComandaVisible] = useState(false);
+    const onPressEditComanda = () => {
+        setModalComandaVisible(!modalComandaVisible);
+    }
 
     return (
         <Modal
@@ -25,10 +44,15 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
                         onPress={() => onPress()}>
-                        <Text style={styles.textStyle}> X </Text>
+                        <AntDesign name="closesquareo" size={30} color="black" />
                     </Pressable>
                     <View style={styles.pedidos}>
-                        <Text style={styles.subtitle}>Pedidos</Text>
+                        <View style={styles.subtitleView}>
+                            <Text style={styles.subtitle}>Pedido</Text>
+                            <TouchableOpacity onPress={onPressEditPedido}>
+                                <MaterialCommunityIcons name="square-edit-outline" size={30} color="black" />
+                            </TouchableOpacity>
+                        </View>
                         <PedidosComponent />
                         <View style={styles.pedidosButtons}>
                             <ButtonOrange text='Entregue' />
@@ -37,7 +61,12 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     </View>
                     <View style={styles.line} />
                     <View style={styles.pedidos}>
-                        <Text style={styles.subtitle}>Comanda</Text>
+                        <View style={styles.subtitleView}>
+                            <Text style={styles.subtitle}>Comanda</Text>
+                            <TouchableOpacity onPress={onPressEditComanda}>
+                                <MaterialCommunityIcons name="square-edit-outline" size={30} color="black" />
+                            </TouchableOpacity>
+                        </View>
                         <ComandaComponent />
                     </View>
                     <View style={styles.line} />
@@ -46,6 +75,8 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     </View>
                 </View>
             </View>
+            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} array={Pedidos} />
+            <ModalComanda modalVisible={modalComandaVisible} onPress={onPressEditComanda} array={Pedidos} />
         </Modal>
     );
 };
@@ -101,10 +132,16 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         textAlign: 'center',
     },
+    subtitleView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 15,
+    },
     subtitle: {
         fontSize: 30,
-        marginBottom: 15,
-        textAlign: 'center',
+        marginBottom: 5,
+        marginRight: 5,
     },
     line: {
         minWidth: '80%',

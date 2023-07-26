@@ -1,7 +1,7 @@
 import { View } from "./Themed";
 import { StyleSheet, Text } from 'react-native';
 
-const Pedidos = [
+export const Pedidos = [
     { produto: "Batata Frita", qtd: 2 },
     { produto: "Refrigerante", qtd: 3 },
     { produto: "Pastel", qtd: 1 },
@@ -28,6 +28,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#e2e2e2',
     }
 });
-
 
 export default PedidosComponent;

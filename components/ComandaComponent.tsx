@@ -1,7 +1,7 @@
 import { View } from "./Themed";
 import { StyleSheet, Text } from 'react-native';
 
-const Comanda = [
+export const Comanda = [
     { produto: "Porção Calabreza", qtd: 3, preco: 60 },
     { produto: "Refrigerante", qtd: 5, preco: 20 },
     { produto: "Pastel", qtd: 2, preco: 6 },
