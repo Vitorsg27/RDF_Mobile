@@ -12,11 +12,6 @@ interface MyComponentProps {
     onPress: () => void;
     text: string;
 }
-const Pedidos = [
-    { produto: "Batata Frita", qtd: 2 },
-    { produto: "Refrigerante", qtd: 3 },
-    { produto: "Pastel", qtd: 1 },
-];
 
 const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
 
@@ -75,8 +70,8 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     </View>
                 </View>
             </View>
-            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} array={Pedidos} />
-            <ModalComanda modalVisible={modalComandaVisible} onPress={onPressEditComanda} array={Pedidos} />
+            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} />
+            <ModalComanda modalVisible={modalComandaVisible} onPress={onPressEditComanda} />
         </Modal>
     );
 };

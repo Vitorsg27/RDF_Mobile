@@ -6,10 +6,9 @@ import { Comanda } from './ComandaComponent';
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
-    array: object[];
 }
 
-const ModalComanda = ({ modalVisible, onPress, array }: MyComponentProps) => {
+const ModalComanda = ({ modalVisible, onPress }: MyComponentProps) => {
     return (
         <Modal 
             animationType="slide"

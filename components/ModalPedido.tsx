@@ -1,4 +1,5 @@
 import { Modal, StyleSheet, Text, Pressable, View, ScrollView, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import ButtonOrange from './ButtonOrange';
 import { Pedidos } from './PedidosComponent';
@@ -6,10 +7,25 @@ import { Pedidos } from './PedidosComponent';
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
-    array: object[];
 }
 
-const ModalPedido = ({ modalVisible, onPress, array }: MyComponentProps) => {
+const ModalPedido = ({ modalVisible, onPress }: MyComponentProps) => {
+    const [data, setData] = useState([...Pedidos]);
+
+    const decreaseQuantity = (index: number) => {
+        if (data[index].qtd > 0) {
+            const updatedData = [...data];
+            updatedData[index].qtd -= 1;
+            setData(updatedData);
+        }
+    };
+
+    const increaseQuantity = (index: number) => {
+        const updatedData = [...data];
+        updatedData[index].qtd += 1;
+        setData(updatedData);
+    };
+
     return (
         <Modal
             animationType="slide"
@@ -27,15 +43,15 @@ const ModalPedido = ({ modalVisible, onPress, array }: MyComponentProps) => {
                         <AntDesign name="closesquareo" size={30} color="black" />
                     </Pressable>
                     <View style={styles.dataView}>
-                        {Pedidos.map((pedido, index) => (
+                        {data.map((pedido, index) => (
                             <View style={styles.pedidoContainer} key={index}>
                                 <Text>{pedido.produto} </Text>
                                 <View style={styles.qtdView}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => decreaseQuantity(index)}>
                                         <AntDesign name="minuscircleo" size={20} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.qtdNum}>{pedido.qtd}</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => increaseQuantity(index)}>
                                         <AntDesign name="pluscircleo" size={20} color="black" />
                                     </TouchableOpacity>
                                 </View>
