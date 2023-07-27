@@ -2,15 +2,19 @@ import { Modal, StyleSheet, Text, Pressable, View, ScrollView, TouchableOpacity 
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import ButtonOrange from './ButtonOrange';
-import { Pedidos } from './PedidosComponent';
+import { IPedidos } from './Modal';
+
 
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
+    pedidos:IPedidos[];
 }
 
-const ModalPedido = ({ modalVisible, onPress }: MyComponentProps) => {
-    const [data, setData] = useState([...Pedidos]);
+const ModalPedido = ({ modalVisible, onPress, pedidos }: MyComponentProps) => {
+    const array =  pedidos;
+
+    const [data, setData] = useState(array);
 
     const decreaseQuantity = (index: number) => {
         if (data[index].qtd > 0) {
@@ -44,7 +48,7 @@ const ModalPedido = ({ modalVisible, onPress }: MyComponentProps) => {
                     </Pressable>
                     <View style={styles.dataView}>
                         {data.map((pedido, index) => (
-                            <View style={styles.pedidoContainer} key={index}>
+                            <View style={styles.pedidoContainer} key={ `${index}`}>
                                 <Text>{pedido.produto} </Text>
                                 <View style={styles.qtdView}>
                                     <TouchableOpacity onPress={() => decreaseQuantity(index)}>

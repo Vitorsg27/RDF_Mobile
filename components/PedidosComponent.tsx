@@ -1,21 +1,23 @@
 import { View } from "./Themed";
 import { StyleSheet, Text } from 'react-native';
+import { IPedidos } from "./Modal";
+import { FC } from "react";
 
-export const Pedidos = [
-    { produto: "Batata Frita", qtd: 2 },
-    { produto: "Refrigerante", qtd: 3 },
-    { produto: "Pastel", qtd: 1 },
-];
 
-const PedidosComponent = () => {
+const PedidosComponent: FC<{pedidos:IPedidos[]}> = ({pedidos}) => {
+
     return (
         <>
-            {Pedidos.map((pedido, index) => (
+            {pedidos.map((pedido, index) => {
+                console.log(pedido, index)
+                return(
                 <View style={styles.pedidoContainer} key={index}>
                     <Text>{pedido.produto} </Text>
                     <Text>{pedido.qtd}</Text>
                 </View>
-            ))}
+                )
+            })
+        }
         </>
     )
 }

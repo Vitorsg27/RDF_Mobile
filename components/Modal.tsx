@@ -13,6 +13,11 @@ interface MyComponentProps {
     text: string;
 }
 
+export interface IPedidos {
+    produto:string; 
+    qtd:number;
+};
+
 const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
 
     const [modalPedidoVisible, setModalPedidoVisible] = useState(false);
@@ -24,6 +29,13 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
     const onPressEditComanda = () => {
         setModalComandaVisible(!modalComandaVisible);
     }
+
+    const Pedidos = [
+        { produto: "Batata Frita", qtd: 2 },
+        { produto: "Refrigerante", qtd: 3 },
+        { produto: "Pastel", qtd: 1 },
+    ]
+   
 
     return (
         <Modal
@@ -48,7 +60,7 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                                 <MaterialCommunityIcons name="square-edit-outline" size={30} color="black" />
                             </TouchableOpacity>
                         </View>
-                        <PedidosComponent />
+                        <PedidosComponent pedidos={Pedidos}/>
                         <View style={styles.pedidosButtons}>
                             <ButtonOrange text='Entregue' />
                             <ButtonOrange text='Cancelar' />
@@ -70,7 +82,7 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     </View>
                 </View>
             </View>
-            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} />
+            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} pedidos={Pedidos}/>
             <ModalComanda modalVisible={modalComandaVisible} onPress={onPressEditComanda} />
         </Modal>
     );
