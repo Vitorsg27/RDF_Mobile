@@ -2,14 +2,13 @@ import { Modal, StyleSheet, Text, Pressable, View, ScrollView, TouchableOpacity 
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import ButtonOrange from './ButtonOrange';
-import { Pedidos } from './PedidosComponent';
-
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
+    Pedidos: any[];
 }
 
-const ModalPedido = ({ modalVisible, onPress }: MyComponentProps) => {
+const ModalPedido = ({ modalVisible, onPress, Pedidos }: MyComponentProps) => {
     const [data, setData] = useState([...Pedidos]);
 
     const decreaseQuantity = (index: number) => {
@@ -26,6 +25,10 @@ const ModalPedido = ({ modalVisible, onPress }: MyComponentProps) => {
         setData(updatedData);
     };
 
+    const resetData = () => {
+        setData([...Pedidos]);
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -33,13 +36,14 @@ const ModalPedido = ({ modalVisible, onPress }: MyComponentProps) => {
             visible={modalVisible}
             onRequestClose={() => {
                 onPress();
+                resetData();
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>Editar Pedido</Text>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => onPress()}>
+                        onPress={() =>{ onPress(); resetData();}}>
                         <AntDesign name="closesquareo" size={30} color="black" />
                     </Pressable>
                     <View style={styles.dataView}>
@@ -57,6 +61,7 @@ const ModalPedido = ({ modalVisible, onPress }: MyComponentProps) => {
                                 </View>
                             </View>
                         ))}
+                        <Text style={styles.qtdNum}>{Pedidos[0].qtd}</Text>
                     </View>
                     <View style={styles.buttonsView}>
                         <ButtonOrange text='Confirmar' />

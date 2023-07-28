@@ -1,13 +1,11 @@
 import { View } from "./Themed";
 import { StyleSheet, Text } from 'react-native';
 
-export const Pedidos = [
-    { produto: "Batata Frita", qtd: 2 },
-    { produto: "Refrigerante", qtd: 3 },
-    { produto: "Pastel", qtd: 1 },
-];
+interface MyComponentProps {
+    Pedidos: any[];
+}
 
-const PedidosComponent = () => {
+const PedidosComponent = ({ Pedidos }: MyComponentProps) => {
     return (
         <>
             {Pedidos.map((pedido, index) => (
