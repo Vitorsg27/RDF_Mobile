@@ -2,12 +2,17 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 interface MyComponentProps {
     text: string;
-    onPress?: () => void;
+    onPress?: (() => void)[];
 }
 
 const ButtonOrange = ({ text, onPress }: MyComponentProps) => {
+    const handlePress = () => {
+        if (onPress && Array.isArray(onPress) && onPress.length > 0) {
+            onPress.forEach((func) => func());
+        }
+    };
     return (
-        <TouchableOpacity style={[styles.desks]} onPress={onPress}>
+        <TouchableOpacity style={[styles.desks]} onPress={handlePress}>
             <Text style={styles.text}>{text}</Text>
         </TouchableOpacity>
     )

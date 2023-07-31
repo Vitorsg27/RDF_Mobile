@@ -65,7 +65,7 @@ const ModalPedido = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentP
                         ))}
                     </View>
                     <View style={styles.buttonsView}>
-                        <ButtonOrange text='Confirmar' onPress={() => { setPedido(JSON.parse(JSON.stringify(data))) }} />
+                        <ButtonOrange text='Confirmar' onPress={[ () => {setPedido(JSON.parse(JSON.stringify(data)))}, onPress ]} />
                     </View>
                 </View>
             </View>
