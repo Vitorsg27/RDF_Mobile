@@ -6,10 +6,12 @@ interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
     Pedidos: any[];
+    setPedido: (data: object[]) => void;
 }
 
-const ModalPedido = ({ modalVisible, onPress, Pedidos }: MyComponentProps) => {
-    const [data, setData] = useState([...Pedidos]);
+const ModalPedido = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentProps) => {
+    const originalPedidos = JSON.parse(JSON.stringify(Pedidos))
+    const [data, setData] = useState(originalPedidos);
 
     const decreaseQuantity = (index: number) => {
         if (data[index].qtd > 0) {
@@ -26,7 +28,7 @@ const ModalPedido = ({ modalVisible, onPress, Pedidos }: MyComponentProps) => {
     };
 
     const resetData = () => {
-        setData([...Pedidos]);
+        setData(originalPedidos);
     }
 
     return (
@@ -43,11 +45,11 @@ const ModalPedido = ({ modalVisible, onPress, Pedidos }: MyComponentProps) => {
                     <Text style={styles.modalText}>Editar Pedido</Text>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() =>{ onPress(); resetData();}}>
+                        onPress={() => { onPress(); resetData(); }}>
                         <AntDesign name="closesquareo" size={30} color="black" />
                     </Pressable>
                     <View style={styles.dataView}>
-                        {data.map((pedido, index) => (
+                        {data.map((pedido: any, index: any) => (
                             <View style={styles.pedidoContainer} key={index}>
                                 <Text>{pedido.produto} </Text>
                                 <View style={styles.qtdView}>
@@ -61,10 +63,9 @@ const ModalPedido = ({ modalVisible, onPress, Pedidos }: MyComponentProps) => {
                                 </View>
                             </View>
                         ))}
-                        <Text style={styles.qtdNum}>{Pedidos[0].qtd}</Text>
                     </View>
                     <View style={styles.buttonsView}>
-                        <ButtonOrange text='Confirmar' />
+                        <ButtonOrange text='Confirmar' onPress={() => { setPedido(JSON.parse(JSON.stringify(data))) }} />
                     </View>
                 </View>
             </View>

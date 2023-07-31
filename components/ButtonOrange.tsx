@@ -2,17 +2,15 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 interface MyComponentProps {
     text: string;
+    onPress?: () => void;
 }
 
-const ButtonOrange = ({ text }: MyComponentProps) => {
-    const onPress = () => {
-    }
+const ButtonOrange = ({ text, onPress }: MyComponentProps) => {
     return (
         <TouchableOpacity style={[styles.desks]} onPress={onPress}>
             <Text style={styles.text}>{text}</Text>
         </TouchableOpacity>
     )
-
 }
 
 const styles = StyleSheet.create({

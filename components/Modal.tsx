@@ -14,12 +14,15 @@ interface MyComponentProps {
 }
 
 const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
-
     const Pedidos = [
         { produto: "Batata Frita", qtd: 2 },
         { produto: "Refrigerante", qtd: 3 },
         { produto: "Pastel", qtd: 1 },
     ];
+    const [ pedidos, setPedidos] = useState(Pedidos);
+    const newSetPedido = (newPedidos: any) => {
+        setPedidos(newPedidos);
+    }
 
     const [modalPedidoVisible, setModalPedidoVisible] = useState(false);
     const onPressEditPedido = () => {
@@ -50,11 +53,11 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     <View style={styles.pedidos}>
                         <View style={styles.subtitleView}>
                             <Text style={styles.subtitle}>Pedido</Text>
-                            <TouchableOpacity onPress={onPressEditPedido}>
+                            <TouchableOpacity onPress={() => {onPressEditPedido();}}>
                                 <MaterialCommunityIcons name="square-edit-outline" size={30} color="black" />
                             </TouchableOpacity>
                         </View>
-                        <PedidosComponent Pedidos={Pedidos} />
+                        <PedidosComponent Pedidos={pedidos} />
                         <View style={styles.pedidosButtons}>
                             <ButtonOrange text='Entregue' />
                             <ButtonOrange text='Cancelar' />
@@ -76,7 +79,7 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     </View>
                 </View>
             </View>
-            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} Pedidos={Pedidos} />
+            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} Pedidos={pedidos} setPedido={newSetPedido} />
             <ModalComanda modalVisible={modalComandaVisible} onPress={onPressEditComanda} />
         </Modal>
     );
