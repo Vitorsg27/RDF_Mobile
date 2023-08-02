@@ -4,8 +4,7 @@ import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import PedidosComponent from './PedidosComponent';
 import ComandaComponent from './ComandaComponent';
 import ButtonOrange from './ButtonOrange';
-import ModalPedido from './ModalPedido';
-import ModalComanda from './ModalComanda';
+import ModalEdit from './ModalEdit';
 
 interface MyComponentProps {
     modalVisible: boolean;
@@ -19,19 +18,29 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
         { produto: "Refrigerante", qtd: 3 },
         { produto: "Pastel", qtd: 1 },
     ];
-    const [ pedidos, setPedidos] = useState(Pedidos);
-    const newSetPedido = (newPedidos: any) => {
+    const [pedidos, setPedidos] = useState(Pedidos);
+    const updatePedido = (newPedidos: any) => {
         setPedidos(newPedidos);
     }
 
-    const [modalPedidoVisible, setModalPedidoVisible] = useState(false);
-    const onPressEditPedido = () => {
-        setModalPedidoVisible(!modalPedidoVisible);
+    const Comanda = [
+        { produto: "Porção Calabreza", qtd: 3, preco: 60 },
+        { produto: "Refrigerante", qtd: 5, preco: 20 },
+        { produto: "Pastel", qtd: 2, preco: 6 },
+        { produto: "Cerveja", qtd: 9, preco: 81 },
+    ];
+    const [comanda, setComanda] = useState(Comanda);
+    const updateComanda = (newComanda: any) => {
+        setComanda(newComanda);
     }
 
-    const [modalComandaVisible, setModalComandaVisible] = useState(false);
+    const [modalEditPedidoVisible, setModalPedidoVisible] = useState(false);
+    const onPressEditPedido = () => {
+        setModalPedidoVisible(!modalEditPedidoVisible);
+    }
+    const [modalEditComandaVisible, setModalComandaVisible] = useState(false);
     const onPressEditComanda = () => {
-        setModalComandaVisible(!modalComandaVisible);
+        setModalComandaVisible(!modalEditComandaVisible);
     }
 
     return (
@@ -53,7 +62,7 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     <View style={styles.pedidos}>
                         <View style={styles.subtitleView}>
                             <Text style={styles.subtitle}>Pedido</Text>
-                            <TouchableOpacity onPress={() => {onPressEditPedido();}}>
+                            <TouchableOpacity onPress={() => { onPressEditPedido(); }}>
                                 <MaterialCommunityIcons name="square-edit-outline" size={30} color="black" />
                             </TouchableOpacity>
                         </View>
@@ -71,7 +80,7 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                                 <MaterialCommunityIcons name="square-edit-outline" size={30} color="black" />
                             </TouchableOpacity>
                         </View>
-                        <ComandaComponent />
+                        <ComandaComponent Comanda={comanda} />
                     </View>
                     <View style={styles.line} />
                     <View style={styles.pedidosButtons}>
@@ -79,8 +88,8 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
                     </View>
                 </View>
             </View>
-            <ModalPedido modalVisible={modalPedidoVisible} onPress={onPressEditPedido} Pedidos={pedidos} setPedido={newSetPedido} />
-            <ModalComanda modalVisible={modalComandaVisible} onPress={onPressEditComanda} />
+            <ModalEdit modalVisible={modalEditPedidoVisible} onPress={onPressEditPedido} Pedidos={pedidos} setPedido={updatePedido} />
+            <ModalEdit modalVisible={modalEditComandaVisible} onPress={onPressEditComanda} Pedidos={comanda} setPedido={updateComanda} />
         </Modal>
     );
 };

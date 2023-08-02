@@ -1,40 +1,63 @@
 import { Modal, StyleSheet, Text, Pressable, View, ScrollView, TouchableOpacity } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; 
+import { useState } from 'react';
+import { AntDesign } from '@expo/vector-icons';
 import ButtonOrange from './ButtonOrange';
-import { Comanda } from './ComandaComponent';
-
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
+    Pedidos: any[];
+    setPedido: (data: object[]) => void;
 }
 
-const ModalComanda = ({ modalVisible, onPress }: MyComponentProps) => {
+const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentProps) => {
+    const originalPedidos = JSON.parse(JSON.stringify(Pedidos))
+    const [data, setData] = useState(originalPedidos);
+
+    const decreaseQuantity = (index: number) => {
+        if (data[index].qtd > 0) {
+            const updatedData = [...data];
+            updatedData[index].qtd -= 1;
+            setData(updatedData);
+        }
+    };
+
+    const increaseQuantity = (index: number) => {
+        const updatedData = [...data];
+        updatedData[index].qtd += 1;
+        setData(updatedData);
+    };
+
+    const resetData = () => {
+        setData(originalPedidos);
+    }
+
     return (
-        <Modal 
+        <Modal
             animationType="slide"
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
                 onPress();
+                resetData();
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Editar Comanda</Text>
+                    <Text style={styles.modalText}>Editar Pedido</Text>
                     <Pressable
                         style={[styles.button, styles.buttonClose]}
-                        onPress={() => onPress()}>
+                        onPress={() => { onPress(); resetData(); }}>
                         <AntDesign name="closesquareo" size={30} color="black" />
                     </Pressable>
                     <View style={styles.dataView}>
-                        {Comanda.map((pedido, index) => (
+                        {data.map((pedido: any, index: any) => (
                             <View style={styles.pedidoContainer} key={index}>
                                 <Text>{pedido.produto} </Text>
                                 <View style={styles.qtdView}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => decreaseQuantity(index)}>
                                         <AntDesign name="minuscircleo" size={20} color="black" />
                                     </TouchableOpacity>
                                     <Text style={styles.qtdNum}>{pedido.qtd}</Text>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => increaseQuantity(index)}>
                                         <AntDesign name="pluscircleo" size={20} color="black" />
                                     </TouchableOpacity>
                                 </View>
@@ -42,7 +65,7 @@ const ModalComanda = ({ modalVisible, onPress }: MyComponentProps) => {
                         ))}
                     </View>
                     <View style={styles.buttonsView}>
-                        <ButtonOrange text='Confirmar' />
+                        <ButtonOrange text='Confirmar' onPress={[ () => {setPedido(JSON.parse(JSON.stringify(data)))}, onPress ]} />
                     </View>
                 </View>
             </View>
@@ -116,4 +139,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ModalComanda;
+export default ModalEdit;

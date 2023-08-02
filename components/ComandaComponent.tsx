@@ -1,14 +1,11 @@
 import { View } from "./Themed";
 import { StyleSheet, Text } from 'react-native';
 
-export const Comanda = [
-    { produto: "Porção Calabreza", qtd: 3, preco: 60 },
-    { produto: "Refrigerante", qtd: 5, preco: 20 },
-    { produto: "Pastel", qtd: 2, preco: 6 },
-    { produto: "Cerveja", qtd: 9, preco: 81 },
-];
+interface MyComponentProps {
+    Comanda: any[];
+}
 
-const ComandaComponent = () => {
+const ComandaComponent = ({ Comanda }: MyComponentProps) => {
     return (
         <>
             <View style={{ backgroundColor: '#e2e2e2' }}>
