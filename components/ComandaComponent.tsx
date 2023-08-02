@@ -6,20 +6,26 @@ interface MyComponentProps {
 }
 
 const ComandaComponent = ({ Comanda }: MyComponentProps) => {
+    const total = Comanda.reduce((accumulator, currentValue) => accumulator + (currentValue.preco * currentValue.qtd), 0);
     return (
         <>
             <View style={{ backgroundColor: '#e2e2e2' }}>
-                {Comanda.map((pedido, index) => (
-                    <View style={styles.pedidoContainer} key={index}>
-                        <Text style={styles.produto}>{pedido.produto} </Text>
-                        <Text style={styles.qtd}>{pedido.qtd}</Text>
-                        <Text style={styles.preco}>{formatPrice(pedido.preco)}</Text>
-                    </View>
-                ))}
+                {Comanda.map((pedido, index) => {
+                    if (pedido.qtd > 0) {
+                        return (
+                            <View style={styles.pedidoContainer} key={index}>
+                                <Text style={styles.produto}>{pedido.produto} </Text>
+                                <Text style={styles.qtd}>{pedido.qtd}</Text>
+                                <Text style={styles.preco}>{formatPrice(pedido.preco * pedido.qtd)}</Text>
+                            </View>
+                        );
+                    }
+                    return null;
+                })}
             </View>
             <View style={styles.total}>
                 <Text>Total</Text>
-                <Text>R$ 167,00</Text>
+                <Text>{formatPrice(total)}</Text>
             </View>
         </>
     )

@@ -24,10 +24,10 @@ const App = ({ modalVisible, onPress, text }: MyComponentProps) => {
     }
 
     const Comanda = [
-        { produto: "Porção Calabreza", qtd: 3, preco: 60 },
-        { produto: "Refrigerante", qtd: 5, preco: 20 },
-        { produto: "Pastel", qtd: 2, preco: 6 },
-        { produto: "Cerveja", qtd: 9, preco: 81 },
+        { produto: "Porção Calabreza", qtd: 3, preco: 20 },
+        { produto: "Refrigerante", qtd: 5, preco: 4 },
+        { produto: "Pastel", qtd: 2, preco: 3 },
+        { produto: "Cerveja", qtd: 9, preco: 9 },
     ];
     const [comanda, setComanda] = useState(Comanda);
     const updateComanda = (newComanda: any) => {
