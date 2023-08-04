@@ -17,6 +17,9 @@ const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentPro
         if (data[index].qtd > 0) {
             const updatedData = [...data];
             updatedData[index].qtd -= 1;
+            // if (updatedData[index].qtd === 0) {
+            //     updatedData.splice(index, 1);
+            // }
             setData(updatedData);
         }
     };
@@ -29,6 +32,18 @@ const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentPro
 
     const resetData = () => {
         setData(originalPedidos);
+    }
+
+    const confirmChange = async () => {
+        const updatedData = [...data];
+        data.map((pedido: any, index: any) => {
+            if (pedido.qtd === 0) {
+                updatedData.splice(index, 1);
+            }
+        }
+        );
+        setData(updatedData);
+        setPedido(JSON.parse(JSON.stringify(updatedData)))
     }
 
     return (
@@ -65,7 +80,7 @@ const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentPro
                         ))}
                     </View>
                     <View style={styles.buttonsView}>
-                        <ButtonOrange text='Confirmar' onPress={[ () => {setPedido(JSON.parse(JSON.stringify(data)))}, onPress ]} />
+                        <ButtonOrange text='Confirmar' onPress={[confirmChange, onPress]} />
                     </View>
                 </View>
             </View>
