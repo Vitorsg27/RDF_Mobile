@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         elevation: 5,
+        borderWidth: 2,
     },
     button: {
         borderRadius: 10,
