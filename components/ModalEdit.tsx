@@ -11,16 +11,15 @@ interface MyComponentProps {
 }
 
 const products = [
-    { produto: 'Product 1' },
-    { produto: 'Product 2' },
-    { produto: 'Product 3' },
+    { produto: 'Product 1', preco: 2 },
+    { produto: 'Product 2', preco: 3 },
+    { produto: 'Product 3', preco: 1 },
 ];
 
 const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentProps) => {
     const originalPedidos = JSON.parse(JSON.stringify(Pedidos))
     const [data, setData] = useState(originalPedidos);
     const [selectedProduct, setSelectedProduct] = useState(products[0].produto);
-    const [selectedProductIndex, setSelectedProductIndex] = useState(0);
     const [cardapio, setCardapio] = useState(products)
 
     const decreaseQuantity = (index: number) => {
