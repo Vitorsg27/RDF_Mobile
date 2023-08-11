@@ -45,9 +45,12 @@ const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentPro
             const productExists = data.some((item: any) => item.produto === selectedProduct);  
             if (!productExists) {
                 const updatedData = [...data];
+                const thisProduct = products.filter((pedido: any) => pedido.produto === selectedProduct)              
+
                 updatedData.push({
                     produto: selectedProduct,
                     qtd: 1,
+                    preco: thisProduct[0].preco,
                 });
                 setData(updatedData);                
             }
