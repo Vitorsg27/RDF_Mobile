@@ -2,6 +2,7 @@ import { Modal, StyleSheet, Text, Pressable, View, ScrollView, TouchableOpacity 
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import ButtonOrange from './ButtonOrange';
+import { Picker } from '@react-native-picker/picker';
 interface MyComponentProps {
     modalVisible: boolean;
     onPress: () => void;
@@ -9,17 +10,23 @@ interface MyComponentProps {
     setPedido: (data: object[]) => void;
 }
 
+const products = [
+    { produto: 'Product 1' },
+    { produto: 'Product 2' },
+    { produto: 'Product 3' },
+];
+
 const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentProps) => {
     const originalPedidos = JSON.parse(JSON.stringify(Pedidos))
     const [data, setData] = useState(originalPedidos);
+    const [selectedProduct, setSelectedProduct] = useState(products[0].produto);
+    const [selectedProductIndex, setSelectedProductIndex] = useState(0);
+    const [cardapio, setCardapio] = useState(products)
 
     const decreaseQuantity = (index: number) => {
         if (data[index].qtd > 0) {
             const updatedData = [...data];
             updatedData[index].qtd -= 1;
-            // if (updatedData[index].qtd === 0) {
-            //     updatedData.splice(index, 1);
-            // }
             setData(updatedData);
         }
     };
@@ -34,15 +41,23 @@ const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentPro
         setData(originalPedidos);
     }
 
-    const confirmChange = async () => {
-        const updatedData = [...data];
-        data.map((pedido: any, index: any) => {
-            if (pedido.qtd === 0) {
-                updatedData.splice(index, 1);
+    const addProduct = () => {
+        if (selectedProduct) {
+            const productExists = data.some((item: any) => item.produto === selectedProduct);  
+            if (!productExists) {
+                const updatedData = [...data];
+                updatedData.push({
+                    produto: selectedProduct,
+                    qtd: 1,
+                });
+                setData(updatedData);                
             }
         }
-        );
-        setData(updatedData);
+    }
+
+    const confirmChange = async () => {
+        const updatedData = data.filter((pedido: any) => pedido.qtd !== 0);     
+        setData(updatedData);        
         setPedido(JSON.parse(JSON.stringify(updatedData)))
     }
 
@@ -78,6 +93,22 @@ const ModalEdit = ({ modalVisible, onPress, Pedidos, setPedido }: MyComponentPro
                                 </View>
                             </View>
                         ))}
+                    </View>
+                    <View style={styles.dataView}>
+                        <Picker
+                            selectedValue={selectedProduct}
+                            onValueChange={(itemValue) => {setSelectedProduct(itemValue);
+                            }}>
+                            {cardapio.map((cardapio, index) => (
+                                <Picker.Item key={index} label={cardapio.produto} value={cardapio.produto} />
+                            ))}
+                        </Picker>
+                        <View style={styles.buttonsView}>
+                            <ButtonOrange
+                                text='Add Selected Product'
+                                onPress={[addProduct]}
+                            />
+                        </View>
                     </View>
                     <View style={styles.buttonsView}>
                         <ButtonOrange text='Confirmar' onPress={[confirmChange, onPress]} />
